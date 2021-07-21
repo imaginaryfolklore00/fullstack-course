@@ -9,19 +9,27 @@ const DisplayStat = ({value, text}) => <p>{text} {value}</p>
 const DisplayStatPercent = ({value, text}) => <p>{text} {value} %</p>
 
 const Statistics = (props) => {
-      const averageValue = props.average / props.all
-      const positivePercentage = (props.good/props.all)*100
-
-      return (
+  if (props.all === 0) {
+    return (
       <div>
-      <DisplayStat value = {props.good} text = 'good' />
-      <DisplayStat value = {props.neutral} text = 'neutral'/>
-      <DisplayStat value = {props.bad} text = 'bad' />
-      <DisplayStat value = {props.all} text = 'all'/>
-      <DisplayStat value = {averageValue} text = 'average'/>
-      <DisplayStatPercent value = {positivePercentage} text = 'positive'/>
+        Feedbacks have not yet been given
       </div>
-      )
+    )    
+  }
+  
+  const averageValue = props.average / props.all
+  const positivePercentage = (props.good/props.all)*100
+
+  return (
+  <div>
+  <DisplayStat value = {props.good} text = 'good' />
+  <DisplayStat value = {props.neutral} text = 'neutral'/>
+  <DisplayStat value = {props.bad} text = 'bad' />
+  <DisplayStat value = {props.all} text = 'all'/>
+  <DisplayStat value = {averageValue} text = 'average'/>
+  <DisplayStatPercent value = {positivePercentage} text = 'positive'/>
+  </div>
+  )
 }
 
 const App = () => {
