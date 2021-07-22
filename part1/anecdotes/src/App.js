@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
 
+const Header2 = ({text}) => <h2>{text}</h2>
+
 const Button = ({ handleClick, text}) => (
   <button onClick = {handleClick}>
     {text}
   </button>
+)
+
+const DisplayAnecdote = (props) => (
+  <div>
+  {props.anecdotes[props.anecdoteIndex]}
+  <br/>
+  has {props.points[props.anecdoteIndex]} votes
+  </div>
 )
 
 const App = () => {
@@ -36,14 +46,16 @@ const App = () => {
     setPoints(copy)
   }
 
+  const maxIndex = points.indexOf(Math.max(...points))
+
   return (
     <div>
-      {anecdotes[selected]}
-      <br/>
-      has {points[selected]} votes
-      <br/>
+      <Header2 text='Anecdote  of the day' />
+      <DisplayAnecdote anecdotes={anecdotes} anecdoteIndex={selected} points={points} />
       <Button handleClick={RandomAnecdote} text='next anecdote' />
       <Button handleClick={Vote} text='vote' />
+      <Header2 text='Anecdote with most votes' />
+      <DisplayAnecdote anecdotes={anecdotes} anecdoteIndex={maxIndex} points={points} />
     </div>
   )
 }
