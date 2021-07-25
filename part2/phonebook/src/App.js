@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 import ShowContacts from './components/ShowContacts'
 
 const App = () => {
@@ -37,39 +39,17 @@ const App = () => {
       setNewNumber('')
     }
   }
+  
+  const contactsToShow = persons.filter(contact => contact.name.toLowerCase().includes(filterName.toLowerCase()))
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with
-        <input
-          value={filterName}
-          onChange={handleFilterChange}
-        />
-      </div>
-      <h2>Add contact</h2>
-      <form onSubmit={addContact}>
-        <div>
-          name: 
-          <input 
-            value={newName}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          number: 
-          <input
-            value={newNumber} 
-            onChange={handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ShowContacts filterName={filterName} contactList={persons}/>
+      <Filter filterName={filterName} handleFilterChange={handleFilterChange} />
+      <h3>Add contact</h3>
+      <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addContact={addContact} />
+      <h3>Numbers</h3>
+      <ShowContacts contactsToShow={contactsToShow}/>
     </div>
   )
 }
