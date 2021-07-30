@@ -2,7 +2,7 @@ import React from 'react'
 import CountryLI from './CountryLI'
 import ShowCountry from './ShowCountry'
 
-const ShowCountries = ({countriesToShow, setFilterName}) => {
+const ShowCountries = ({ countriesToShow, setFilterName }) => {
     const numOfCountries = countriesToShow.length
     if (numOfCountries > 10) {
         return (
