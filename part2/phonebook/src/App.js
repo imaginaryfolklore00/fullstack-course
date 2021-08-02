@@ -39,6 +39,14 @@ const App = () => {
         })
   }
   }
+
+  const deleteContact = (id, name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      contactService
+      .delete_db(id)
+      .then(setPersons(persons.filter(person => person.id !== id)))
+    }
+  }
   
   const contactsToShow = persons.filter(contact => contact.name.toLowerCase().includes(filterName.toLowerCase()))
 
@@ -57,7 +65,7 @@ const App = () => {
       <h3>Add contact</h3>
       <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addContact={addContact} />
       <h3>Numbers</h3>
-      <ShowContacts contactsToShow={contactsToShow}/>
+      <ShowContacts contactsToShow={contactsToShow} deleteContact={deleteContact}/>
     </div>
   )
 }
