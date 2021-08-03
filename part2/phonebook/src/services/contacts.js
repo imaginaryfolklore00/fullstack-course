@@ -21,4 +21,5 @@ const delete_db = (id) => {
     return request.then(response => response.data)
 }
 
+
 export default { getAll, create, update, delete_db }

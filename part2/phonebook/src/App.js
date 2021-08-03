@@ -14,14 +14,26 @@ const App = () => {
   const handleNumberChange = (event) => setNewNumber(event.target.value)
   const handleFilterChange = (event) => setFilterName(event.target.value)
 
+  const updateContact = (contact, newNumber) => {
+    const changedContact = {...contact, number: newNumber}
+
+    contactService
+      .update(contact.id, changedContact)
+      .then(returnedContact => {
+        setPersons(persons.map(person => person.id !== contact.id ? person : returnedContact))
+      })
+  }
+
   const addContact = (event) => {
     event.preventDefault()
 
-    const names = persons.map(contact => contact.name)
-    const numbers = persons.map(contact => contact.number)
+    const contact = persons.find(c => c.name === newName)
 
-    if (names.includes(newName) || numbers.includes(newNumber)) {
-      window.alert(`${newName} is already added to phonebook or the given number already exists`)
+    if (contact) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`))
+      {
+        updateContact(contact, newNumber)
+      }
     }
 
     else {
@@ -37,7 +49,7 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
-  }
+      }
   }
 
   const deleteContact = (id, name) => {
